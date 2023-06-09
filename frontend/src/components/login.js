@@ -32,15 +32,10 @@ const LoginForm = () => {
       .then((response) => {
         if (response.ok) {
           setRedirect(true);
+          navigate("/home");
           return response.json();
         }
         throw new Error("Network response was not ok.");
-      })
-      .then((data) => {
-        console.log(data);
-        if (redirect) {
-          navigate("/home");
-        }
       })
       .catch((error) => {
         console.error(error);
