@@ -25,7 +25,9 @@ function About() {
 
     fetch("http://localhost:8000/api/information", {
       method: "POST",
-      contentType: "multipart/form-data",
+        headers: {
+            "Content-Type": "application/json",
+        },
       body: JSON.stringify({
         group_name: groupName,
         group_number: groupNumber,

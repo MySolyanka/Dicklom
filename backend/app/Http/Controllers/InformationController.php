@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Information;
 
 class InformationController extends Controller
 {
+    // ...
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -35,6 +38,9 @@ class InformationController extends Controller
             $information->save();
         }
 
-        return response()->json(['message' => 'Информация успешно добавлена'], 200);
+        $response = new Response(['message' => 'Информация успешно добавлена'], 200);
+
+
+        return $response;
     }
 }
