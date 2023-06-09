@@ -47,12 +47,12 @@ function About() {
         console.log(error);
       });
     // Сброс значений полей
-    // setGroupName("");
-    // setGroupNumber("");
-    // setSenderName("");
-    // setMessageTopic("");
-    // setMessageText("");
-    // setFile(null);
+    setGroupName("");
+    setGroupNumber("");
+    setSenderName("");
+    setMessageTopic("");
+    setMessageText("");
+    setFile(null);
   };
 
   return (
