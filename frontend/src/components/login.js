@@ -32,15 +32,10 @@ const LoginForm = () => {
       .then((response) => {
         if (response.ok) {
           setRedirect(true);
+          navigate("/home");
           return response.json();
         }
         throw new Error("Network response was not ok.");
-      })
-      .then((data) => {
-        console.log(data);
-        if (redirect) {
-          navigate("/home");
-        }
       })
       .catch((error) => {
         console.error(error);
@@ -69,30 +64,6 @@ const LoginForm = () => {
         </form>
       </div>
     </div>
-
-    // <form onSubmit={handleSubmit} className="form">
-    //   <div className="formGroup">
-    //     <label className="label">Логин:</label>
-    //     <input
-    //       type="text"
-    //       value={login}
-    //       onChange={handleLoginChange}
-    //       className="input"
-    //     />
-    //   </div>
-    //   <div className="formGroup">
-    //     <label className="label">Пароль:</label>
-    //     <input
-    //       type="password"
-    //       value={password}
-    //       onChange={handlePasswordChange}
-    //       className="input"
-    //     />
-    //   </div>
-    //   <button type="submit" className="button">
-    //     Войти
-    //   </button>
-    // </form>
   );
 };
 
