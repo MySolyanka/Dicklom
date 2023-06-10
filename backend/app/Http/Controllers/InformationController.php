@@ -20,7 +20,7 @@ class InformationController extends Controller
             'sender_name' => 'required',
             'message_topic' => 'required',
             'message_text' => 'required',
-            'file' => 'nullable|file',
+            'file' => 'nullable|text',
             'ext' => 'text',
         ]);
 
