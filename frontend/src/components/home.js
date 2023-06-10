@@ -33,7 +33,7 @@ function About() {
     fetch("http://localhost:8000/api/information", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
       body: JSON.stringify({
         group_name: groupName,
