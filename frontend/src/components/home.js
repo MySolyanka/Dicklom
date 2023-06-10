@@ -28,7 +28,7 @@ function About() {
     // formData.append("file", file);
     // ...
 
-    // console.log(formData);
+    console.log(file);
 
     fetch("http://localhost:8000/api/information", {
       method: "POST",
@@ -45,6 +45,7 @@ function About() {
       }),
     })
       .then((response) => {
+
         if (response.ok) {
           console.log(response);
           return;
@@ -53,6 +54,7 @@ function About() {
       })
       .catch((error) => {
         console.log(error);
+
       });
     // Сброс значений полей
     setGroupName("");
