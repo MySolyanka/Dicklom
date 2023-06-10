@@ -41,11 +41,12 @@ function About() {
         sender_name: senderName,
         message_topic: messageTopic,
         message_text: messageText,
-        file: file,
+        file: btoa(file),
       }),
     })
       .then((response) => {
         if (response.ok) {
+          console.log(response);
           return;
         }
         throw new Error(`${response.status} ${response.statusText}`);
