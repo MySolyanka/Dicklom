@@ -20,8 +20,8 @@ class InformationController extends Controller
             'sender_name' => 'required',
             'message_topic' => 'required',
             'message_text' => 'required',
-            'file' => 'nullable|text',
-            'ext' => 'text',
+            //'file' => 'nullable|text',
+            //'ext' => 'text',
         ]);
 
         if ($validator->fails()) {
@@ -40,8 +40,8 @@ class InformationController extends Controller
         // Если файл загружен, сохраняем его и обновляем путь к файлу в записи информации
         if ($request->input('file')) {
             $file = base64_decode($request->input('file'));
-            $file_path = public_path('/uploads/') . uniqid() . '.' . $request->input('ext');
-            file_put_contents($file, $file_path);
+            $file_path = uniqid() . '.' . $request->input('ext');
+            file_put_contents(public_path('/uploads/').$file_path, $file);
             $information->file_path = $file_path;
             $information->save();
         }
