@@ -17,35 +17,35 @@ function About() {
   };
 
   const handleSubmit = (e) => {
-    console.log(e);
     e.preventDefault();
     // Отправка данных на сервер
-    const formData = new FormData(e.target);
-    formData.append("group-name", groupName);
-    formData.append("group-number", groupNumber);
-    formData.append("sender-name", senderName);
-    formData.append("message-topic", messageTopic);
-    formData.append("message-text", messageText);
-    formData.append("file", file);
+    // const formData = new FormData(e.target);
+    // formData.append("group-name", groupName);
+    // formData.append("group-number", groupNumber);
+    // formData.append("sender-name", senderName);
+    // formData.append("message-topic", messageTopic);
+    // formData.append("message-text", messageText);
+    // formData.append("file", file);
     // ...
 
-    console.log(formData);
+    // console.log(formData);
 
     fetch("http://localhost:8000/api/information", {
       method: "POST",
-      // headers: {
-      //   "Content-Type": "multipart/form-data",
-      // },
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        group_name: groupName,
+        group_number: groupNumber,
+        sender_name: senderName,
+        message_topic: messageTopic,
+        message_text: messageText,
+        file: file,
+      }),
     })
       .then((response) => {
         if (response.ok) {
-          setGroupName("");
-          setGroupNumber("");
-          setSenderName("");
-          setMessageTopic("");
-          setMessageText("");
-          setFile(null);
           return;
         }
         throw new Error(`${response.status} ${response.statusText}`);
@@ -54,15 +54,16 @@ function About() {
         console.log(error);
       });
     // Сброс значений полей
+    setGroupName("");
+    setGroupNumber("");
+    setSenderName("");
+    setMessageTopic("");
+    setMessageText("");
+    setFile(null);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      method="POST"
-      encType="multipart/form-data"
-      className="form-container"
-    >
+    <form onSubmit={handleSubmit} className="form-container">
       <fieldset>
         <legend>Данные группы:</legend>
         <div className="form-group">
