@@ -17,6 +17,7 @@ function About() {
   };
 
   const handleSubmit = (e) => {
+    console.log(e);
     e.preventDefault();
     // Отправка данных на сервер
     const formData = new FormData(e.target);
@@ -28,7 +29,7 @@ function About() {
     formData.append("file", file);
     // ...
 
-    console.log(file);
+    console.log(formData);
 
     fetch("http://localhost:8000/api/information", {
       method: "POST",
@@ -39,6 +40,12 @@ function About() {
     })
       .then((response) => {
         if (response.ok) {
+          setGroupName("");
+          setGroupNumber("");
+          setSenderName("");
+          setMessageTopic("");
+          setMessageText("");
+          setFile(null);
           return;
         }
         throw new Error(`${response.status} ${response.statusText}`);
@@ -47,12 +54,6 @@ function About() {
         console.log(error);
       });
     // Сброс значений полей
-    setGroupName("");
-    setGroupNumber("");
-    setSenderName("");
-    setMessageTopic("");
-    setMessageText("");
-    setFile(null);
   };
 
   return (
