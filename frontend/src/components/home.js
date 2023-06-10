@@ -19,30 +19,23 @@ function About() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Отправка данных на сервер
-    // const formData = new FormData(e.target);
-    // formData.append("group-name", groupName);
-    // formData.append("group-number", groupNumber);
-    // formData.append("sender-name", senderName);
-    // formData.append("message-topic", messageTopic);
-    // formData.append("message-text", messageText);
-    // formData.append("file", file);
+    const formData = new FormData(e.target);
+    formData.append("group-name", groupName);
+    formData.append("group-number", groupNumber);
+    formData.append("sender-name", senderName);
+    formData.append("message-topic", messageTopic);
+    formData.append("message-text", messageText);
+    formData.append("file", file);
     // ...
 
-    // console.log(formData);
+    console.log(file);
 
     fetch("http://localhost:8000/api/information", {
       method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: JSON.stringify({
-        group_name: groupName,
-        group_number: groupNumber,
-        sender_name: senderName,
-        message_topic: messageTopic,
-        message_text: messageText,
-        file: file,
-      }),
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
+      body: formData,
     })
       .then((response) => {
         if (response.ok) {
@@ -63,7 +56,12 @@ function About() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
+    <form
+      onSubmit={handleSubmit}
+      method="POST"
+      encType="multipart/form-data"
+      className="form-container"
+    >
       <fieldset>
         <legend>Данные группы:</legend>
         <div className="form-group">
