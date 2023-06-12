@@ -19,8 +19,8 @@ class InformationController extends Controller
             'group_number' => 'required',
             'sender_name' => 'required',
             'message_topic' => 'required',
-            'message_text' => 'nullable|text',
-            'file' => 'nullable|file',
+            'message_text' => 'nullable|string',
+            //'file' => 'nullable|file',
         ]);
 
         if ($validator->fails()) {
@@ -30,18 +30,22 @@ class InformationController extends Controller
         $data = $request->all();
 
 
+
+
+
+
         $model = new Information(); // Создание новой модели
         $model->group_name = $data['group_name']; // Замените "field1" на имя поля в вашей таблице
         $model->group_number = $data['group_number'];
         $model->sender_name = $data['sender_name'];
         $model->message_topic = $data['message_topic'];
 
-        $message_text = $request->file('message_text');
+        $message_text = $data['message_text'];
         if ($message_text)
             $model->message_text = $data['message_text'];
 
-        $file = $request->file('file');
-        if ($file) {
+        $file = $data['file'];
+        if ($file != 'null') {
             $file = $request->file('file');
 
             // Генерация уникального имени файла

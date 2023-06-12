@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('group_number');
             $table->string('sender_name');
             $table->string('message_topic');
-            $table->text('message_text');
+            $table->text('message_text')->nullable();
             $table->string('file_path')->nullable();
             $table->timestamps();
         });
