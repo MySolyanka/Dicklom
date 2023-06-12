@@ -1,5 +1,5 @@
+import { render } from "@testing-library/react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function About() {
@@ -19,33 +19,32 @@ function About() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Отправка данных на сервер
-    // const formData = new FormData(e.target);
-    // formData.append("group-name", groupName);
-    // formData.append("group-number", groupNumber);
-    // formData.append("sender-name", senderName);
-    // formData.append("message-topic", messageTopic);
-    // formData.append("message-text", messageText);
-    // formData.append("file", file);
-    // ...
+    const formData = new FormData(e.target);
 
-    console.log(file);
+    formData.append("group-name", groupName);
+    formData.append("group-number", groupNumber);
+    formData.append("sender-name", senderName);
+    formData.append("message-topic", messageTopic);
+    formData.append("message-text", messageText);
+    formData.append("file", file);
+    // ...
 
     fetch("http://localhost:8000/api/information", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
-      body: JSON.stringify({
-        group_name: groupName,
-        group_number: groupNumber,
-        sender_name: senderName,
-        message_topic: messageTopic,
-        message_text: messageText,
-        file: btoa(file),
-      }),
+      body: formData,
+      // body: JSON.stringify({
+      //   group_name: groupName,
+      //   group_number: groupNumber,
+      //   sender_name: senderName,
+      //   message_topic: messageTopic,
+      //   message_text: messageText,
+      //   file: file,
+      // }),
     })
       .then((response) => {
-
         if (response.ok) {
           console.log(response);
           return;
@@ -54,7 +53,6 @@ function About() {
       })
       .catch((error) => {
         console.log(error);
-
       });
     // Сброс значений полей
     setGroupName("");
@@ -77,7 +75,7 @@ function About() {
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
             maxLength="10"
-            required
+            // required
           />
         </div>
         <div className="form-group">
@@ -89,7 +87,7 @@ function About() {
             onChange={(e) => setGroupNumber(e.target.value)}
             min="1"
             max="5"
-            required
+            // required
           />
         </div>
       </fieldset>
@@ -102,7 +100,7 @@ function About() {
           id="sender-name"
           value={senderName}
           onChange={(e) => setSenderName(e.target.value)}
-          required
+          // required
         />
         <br />
         <label htmlFor="message-topic">Тема сообщения:</label>
@@ -111,7 +109,7 @@ function About() {
           id="message-topic"
           value={messageTopic}
           onChange={(e) => setMessageTopic(e.target.value)}
-          required
+          // required
         />
       </fieldset>
       <br />
