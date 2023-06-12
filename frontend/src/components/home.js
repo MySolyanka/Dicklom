@@ -34,28 +34,37 @@ function About() {
       console.log(key, value);
     }
 
-    fetch("http://localhost:8000/api/information", {
-      method: "POST",
-      body: formData,
-      // body: JSON.stringify({
-      //   group_name: groupName,
-      //   group_number: groupNumber,
-      //   sender_name: senderName,
-      //   message_topic: messageTopic,
-      //   message_text: messageText,
-      //   file: file,
-      // }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(response);
-          return;
-        }
-        throw new Error(`${response.status} ${response.statusText}`);
+    if (id) {
+      fetch("http://localhost:8000/api/data")
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error(`${response.status} ${response.statusText}`);
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      fetch("http://localhost:8000/api/information", {
+        method: "POST",
+        body: formData,
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => {
+          if (response.ok) {
+            alert("Загрузка прошла успешно");
+            return;
+          }
+          throw new Error(`${response.status} ${response.statusText}`);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
     // Сброс значений полей
     setGroupName("");
     setGroupNumber("");

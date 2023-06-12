@@ -35,7 +35,6 @@ function DataTable() {
   }, []);
 
   const handleRowClick = (params) => {
-    console.log("Clicked Row:", params.row);
     const itemId = params.row.id;
     navigate(`/home/${itemId}`);
   };
