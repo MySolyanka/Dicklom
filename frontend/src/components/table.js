@@ -1,6 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import "../assets/table.css";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { field: "id", headerName: "ID", width: 150 },
@@ -9,10 +10,11 @@ const columns = [
   { field: "sender_name", headerName: "sender_name", width: 150 },
   { field: "message_topic", headerName: "message_topic", width: 150 },
   { field: "message_text", headerName: "message_text", width: 150 },
-  { field: "file", headerName: "file", width: 150 },
+  { field: "file", headerName: "message_text", width: 150 },
 ];
 
 function DataTable() {
+  const navigate = useNavigate();
   const [rows, setRows] = React.useState([]);
 
   React.useEffect(() => {
@@ -34,7 +36,8 @@ function DataTable() {
 
   const handleRowClick = (params) => {
     console.log("Clicked Row:", params.row);
-    // логика клика
+    const itemId = params.row.id;
+    navigate(`/form/${itemId}`);
   };
 
   return (

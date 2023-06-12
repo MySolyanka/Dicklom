@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function About() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function About() {
   };
 
   const handleSubmit = (e) => {
+    const { id } = useParams();
     e.preventDefault();
     // Отправка данных на сервер
     const formData = new FormData(e.target);
