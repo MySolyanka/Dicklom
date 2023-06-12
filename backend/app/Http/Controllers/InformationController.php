@@ -20,7 +20,7 @@ class InformationController extends Controller
             'sender_name' => 'required',
             'message_topic' => 'required',
             'message_text' => 'nullable|string',
-            //'file' => 'nullable|file',
+            'file' => 'string|file',
         ]);
 
         if ($validator->fails()) {
