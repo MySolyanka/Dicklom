@@ -18,7 +18,6 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //проверка логина и пароль на существование, удали после проверки!!! При нажатии на кнопку, логин и пароль будет выведен в консоль
     fetch("http://localhost:8000/api/login", {
       method: "POST",
       headers: {
