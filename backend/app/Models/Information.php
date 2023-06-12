@@ -10,6 +10,7 @@ class Information extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'group_name',
         'group_number',
         'sender_name',
