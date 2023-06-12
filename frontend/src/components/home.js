@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,19 +20,20 @@ function About() {
     // Отправка данных на сервер
     const formData = new FormData(e.target);
 
-    formData.append("group-name", groupName);
-    formData.append("group-number", groupNumber);
-    formData.append("sender-name", senderName);
-    formData.append("message-topic", messageTopic);
-    formData.append("message-text", messageText);
+    formData.append("group_name", groupName);
+    formData.append("group_number", groupNumber);
+    formData.append("sender_name", senderName);
+    formData.append("message_topic", messageTopic);
+    formData.append("message_text", messageText);
     formData.append("file", file);
     // ...
 
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
     fetch("http://localhost:8000/api/information", {
       method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
       body: formData,
       // body: JSON.stringify({
       //   group_name: groupName,
