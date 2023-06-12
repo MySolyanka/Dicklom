@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/form/:id" component={About} />
+        <Route path="/home/:id" element={<About />} />
         <Route exact path="/" element={<LoginForm />} />
         <Route path="/home" element={<About />} />
         <Route path="/table" element={<DataTable />} />
