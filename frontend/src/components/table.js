@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import "../assets/table.css";
 
 const columns = [
+  { field: "id", headerName: "ID", width: 150 },
   { field: "group_name", headerName: "group_name", width: 150 },
   { field: "group_number", headerName: "group_number", width: 150 },
   { field: "sender_name", headerName: "sender_name", width: 150 },
