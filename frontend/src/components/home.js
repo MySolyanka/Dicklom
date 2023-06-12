@@ -21,6 +21,7 @@ function About() {
     // Отправка данных на сервер
     const formData = new FormData(e.target);
 
+<<<<<<< HEAD
     formData.append("group-name", groupName);
     formData.append("group-number", groupNumber);
     formData.append("sender-name", senderName);
@@ -28,6 +29,9 @@ function About() {
     formData.append("message-text", messageText);
     formData.append("file", file);
     // ...
+=======
+    console.log(file);
+>>>>>>> e59cb1d87d62df6525a6b3ea0d70672c96d5427f
 
     fetch("http://localhost:8000/api/information", {
       method: "POST",
@@ -45,6 +49,7 @@ function About() {
       // }),
     })
       .then((response) => {
+
         if (response.ok) {
           console.log(response);
           return;
@@ -53,6 +58,7 @@ function About() {
       })
       .catch((error) => {
         console.log(error);
+
       });
     // Сброс значений полей
     setGroupName("");
