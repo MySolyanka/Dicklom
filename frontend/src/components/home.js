@@ -29,13 +29,12 @@ function About() {
     formData.append("message_text", messageText);
     formData.append("file", file);
     // ...
-
     for (const [key, value] of formData.entries()) {
       console.log(key, value);
     }
 
     if (id) {
-      fetch("http://localhost:8000/api/data")
+      fetch(`http://localhost:8000/api/data?id=${id}`)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -43,7 +42,12 @@ function About() {
           throw new Error(`${response.status} ${response.statusText}`);
         })
         .then((data) => {
-          console.log(data);
+          setGroupName(data.group_name);
+          setGroupNumber(data.groupNumber);
+          setSenderName(data.senderName);
+          setMessageTopic(data.messageTopic);
+          setMessageText(data.messageText);
+          setFile(file);
         })
         .catch((err) => {
           console.log(err);
