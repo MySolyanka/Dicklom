@@ -9,6 +9,7 @@ const columns = [
   { field: "sender_name", headerName: "sender_name", width: 150 },
   { field: "message_topic", headerName: "message_topic", width: 150 },
   { field: "message_text", headerName: "message_text", width: 150 },
+  { field: "file", headerName: "file", width: 150 },
 ];
 
 function DataTable() {
@@ -37,7 +38,7 @@ function DataTable() {
   };
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 600, width: "100%" }}>
       <DataGrid
         className="dataGrid"
         rows={rows}
