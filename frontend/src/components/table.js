@@ -3,36 +3,18 @@ import { DataGrid } from "@mui/x-data-grid";
 import "../assets/table.css";
 
 const columns = [
-  { field: "completed", headerName: "completed", width: 150 },
-  { field: "id", headerName: "ID", width: 150 },
-  { field: "title", headerName: "title", width: 150 },
-  { field: "userId", headerName: "userId", width: 150 },
-  // { field: "firstName", headerName: "First name", width: 130 },
-  // { field: "lastName", headerName: "Last name", width: 130 },
-  // {
-  //   field: "age",
-  //   headerName: "Age",
-  //   type: "number",
-  //   width: 90,
-  // },
-  // {
-  //   field: "fullName",
-  //   headerName: "Full name",
-  //   description: "This column has a value getter and is not sortable.",
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params) =>
-  //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  // },
+  { field: "group_name", headerName: "group_name", width: 150 },
+  { field: "group_number", headerName: "group_number", width: 150 },
+  { field: "sender_name", headerName: "sender_name", width: 150 },
+  { field: "message_topic", headerName: "message_topic", width: 150 },
+  { field: "message_text", headerName: "message_text", width: 150 },
 ];
-
-const rows = [];
 
 function DataTable() {
   const [rows, setRows] = React.useState([]);
 
   React.useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos/1")
+    fetch("http://localhost:8000/api/data")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -41,26 +23,26 @@ function DataTable() {
       })
       .then((data) => {
         console.log(data);
-        setRows([data]);
+        setRows(data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+  const handleRowClick = (params) => {
+    console.log("Clicked Row:", params.row);
+    // логика клика
+  };
+
   return (
-    <div>
+    <div style={{ height: 400, width: "100%" }}>
       <DataGrid
         className="dataGrid"
         rows={rows}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
+        onRowClick={handleRowClick}
+        pageSize={5}
       />
     </div>
   );
