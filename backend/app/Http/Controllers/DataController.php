@@ -41,7 +41,7 @@ class DataController extends Controller
 
     public function downloadFile($id)
     {
-        $data = Data::find($id);
+        $data = Information::find($id);
 
         if (!$data || !$data->file_path) {
             return response()->json(['error' => 'Файл не найден'], 404);
