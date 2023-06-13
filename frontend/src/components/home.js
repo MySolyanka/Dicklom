@@ -55,28 +55,49 @@ function About() {
     formData.append("file", file);
     // ...
 
-    fetch("http://localhost:8000/api/information", {
-      method: id ? "PUT" : "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          id
-            ? alert("Обновление прошло успешло")
-            : alert("Загрузка прошла успешно");
-          setGroupName("");
-          setGroupNumber("");
-          setSenderName("");
-          setMessageTopic("");
-          setMessageText("");
-          setFile(null);
-          return;
-        }
-        throw new Error(`${response.status} ${response.statusText}`);
+    if (id) {
+      fetch(`http://localhost:8000/api/data/${id}`, {
+        method: "PUT",
+        body: formData,
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => {
+          if (response.ok) {
+            alert("Загрузка прошла успешно");
+            setGroupName("");
+            setGroupNumber("");
+            setSenderName("");
+            setMessageTopic("");
+            setMessageText("");
+            setFile(null);
+            return;
+          }
+          throw new Error(`${response.status} ${response.statusText}`);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      fetch("http://localhost:8000/api/information", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert("Загрузка прошла успешно");
+            setGroupName("");
+            setGroupNumber("");
+            setSenderName("");
+            setMessageTopic("");
+            setMessageText("");
+            setFile(null);
+            return;
+          }
+          throw new Error(`${response.status} ${response.statusText}`);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
