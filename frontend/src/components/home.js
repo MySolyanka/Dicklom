@@ -24,7 +24,7 @@ function About() {
   const handleLoad = () => {
     fetch(`http://localhost:8000/api/data?id=${id}`)
       .then((response) => {
-        if (response.ok) {
+        if (response.ok) {.
           return response.json();
         }
         throw new Error(`${response.status} ${response.statusText}`);
