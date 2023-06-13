@@ -62,4 +62,5 @@ class InformationController extends Controller
 
         return response()->json(['message' => 'Информация успешно добавлена'], 200);
     }
+
 }

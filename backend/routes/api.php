@@ -26,4 +26,9 @@ Route::post('/information', [InformationController::class, 'store']);
 
 
 Route::get('/data', [DataController::class, 'index']);
+
 Route::get('/data/{id}/download', [DataController::class, 'downloadFile'])->name('data.file');
+
+Route::get('/data/{id}', [DataController::class, 'getById']);
+
+Route::put('/data/{id}', [DataController::class, 'updateById']);
