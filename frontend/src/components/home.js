@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function About() {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [groupName, setGroupName] = useState("");
   const [groupNumber, setGroupNumber] = useState("");
@@ -17,8 +18,8 @@ function About() {
   };
 
   const handleSubmit = (e) => {
-    const { id } = useParams();
     e.preventDefault();
+
     // Отправка данных на сервер
     const formData = new FormData(e.target);
 
@@ -29,9 +30,6 @@ function About() {
     formData.append("message_text", messageText);
     formData.append("file", file);
     // ...
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
 
     if (id) {
       fetch(`http://localhost:8000/api/data?id=${id}`)
@@ -42,7 +40,7 @@ function About() {
           throw new Error(`${response.status} ${response.statusText}`);
         })
         .then((data) => {
-          setGroupName(data.group_name);
+          setGroupName(data.group_Name);
           setGroupNumber(data.group_Number);
           setSenderName(data.sender_Name);
           setMessageTopic(data.message_Topic);
