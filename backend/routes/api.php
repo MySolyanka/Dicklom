@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\BotController;
 use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 
 /*
@@ -32,3 +33,7 @@ Route::get('/data/{id}/download', [DataController::class, 'downloadFile'])->name
 Route::get('/data/{id}', [DataController::class, 'getById']);
 
 Route::put('/data/{id}', [DataController::class, 'updateById']);
+
+Route::get('/bot/{topic}', [BotController::class, 'checkMessage']);
+
+

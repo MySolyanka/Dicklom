@@ -50,8 +50,13 @@ class DataController extends Controller
         $file = Storage::path($data->file_path);
         $filename = basename($file);
 
-        return response()->download($file, $filename);
+        // Создание временного файла
+        $tempFile = tempnam(sys_get_temp_dir(), 'bot');
+        copy($file, $tempFile);
+
+        return response()->download($tempFile, $filename)->deleteFileAfterSend(true);
     }
+
 
     public function getById($id)
     {
