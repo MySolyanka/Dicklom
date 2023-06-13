@@ -22,7 +22,7 @@ function About() {
   };
 
   const handleLoad = () => {
-    fetch(`http://localhost:8000/api/data?id=${id}`)
+    fetch(`http://localhost:8000/api/data/${id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -30,11 +30,11 @@ function About() {
         throw new Error(`${response.status} ${response.statusText}`);
       })
       .then((data) => {
-        setGroupName(data[0].group_name);
-        setGroupNumber(data[0].group_number);
-        setSenderName(data[0].sender_name);
-        setMessageTopic(data[0].message_topic);
-        setMessageText(data[0].message_text || "");
+        setGroupName(data.group_name);
+        setGroupNumber(data.group_number);
+        setSenderName(data.sender_name);
+        setMessageTopic(data.message_topic);
+        setMessageText(data.message_text || "");
         setFile(file);
       })
       .catch((err) => {
@@ -56,7 +56,7 @@ function About() {
     // ...
 
     if (id) {
-      fetch(`http://localhost:8000/api/data/${id}`, {
+      fetch(`http://localhost:8000/api/upd_data/${id}`, {
         method: "PUT",
         body: formData,
       })

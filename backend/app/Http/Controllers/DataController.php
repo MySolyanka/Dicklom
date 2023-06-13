@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use App\Models\Information;
 
 
@@ -62,18 +63,20 @@ class DataController extends Controller
     {
         $data = Information::find($id);
 
-
         if (!$data) {
             return response()->json(['error' => 'Данные не найдены'], 404);
         }
 
+        $file = null;
+        $filename = null;
 
+        // Если поле file_path не пустое, получаем путь к файлу
         if ($data->file_path) {
             $file = Storage::path($data->file_path);
             $filename = basename($file);
         }
 
-        $responseData[] = [
+        $responseData = [
             'id' => $data->id,
             'group_name' => $data->group_name,
             'group_number' => $data->group_number,
@@ -87,16 +90,16 @@ class DataController extends Controller
         ];
 
         return response()->json($responseData);
-
     }
     public function updateById($id, Request $request)
     {
         $data = Information::find($id);
-
         if (!$data) {
             return response()->json(['error' => 'Данные не найдены'], 404);
         }
 
+        $requestData = $request->all();
+        return response()->json($requestData);
         // Удаляем предыдущий файл, если он существует
         if ($data->file_path) {
             Storage::delete($data->file_path);
@@ -116,8 +119,28 @@ class DataController extends Controller
         }
 
         // Обновляем остальные данные
-        $data->update($request->all());
+        if ($request->has('group_name')) {
+            $data->group_name = $request->input('group_name');
+        }
 
-        return response()->json($data);
+        if ($request->has('group_number')) {
+            $data->group_number = $request->input('group_number');
+        }
+
+        if ($request->has('sender_name')) {
+            $data->sender_name = $request->input('sender_name');
+        }
+
+        if ($request->has('message_topic')) {
+            $data->message_topic = $request->input('message_topic');
+        }
+
+        if ($request->has('message_text')) {
+            $data->message_text = $request->input('message_text');
+        }
+
+        $data->save();
+
+        return response()->json($request);
     }
 }

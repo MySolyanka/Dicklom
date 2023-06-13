@@ -25,14 +25,13 @@ Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/authenticate', [AuthController::class, 'authenticate']); Планы на будущее
 Route::post('/information', [InformationController::class, 'store']);
 
-
-Route::get('/data', [DataController::class, 'index']);
-
 Route::get('/data/{id}/download', [DataController::class, 'downloadFile'])->name('data.file');
 
-Route::get('/data/{id}', [DataController::class, 'getById']);
+Route::put('/upd_data/{id}', [DataController::class, 'updateById'])->name('home.updateById');
 
-Route::put('/data/{id}', [DataController::class, 'updateById']);
+Route::get('/data/{id}', [DataController::class, 'getById'])->name('home.getById');
+
+Route::get('/data', [DataController::class, 'index']);
 
 Route::get('/bot/{topic}', [BotController::class, 'checkMessage']);
 
