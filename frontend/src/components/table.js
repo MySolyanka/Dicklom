@@ -26,7 +26,6 @@ function DataTable() {
         throw new Error(`${response.status} ${response.statusText}`);
       })
       .then((data) => {
-        console.log(data);
         setRows(data);
       })
       .catch((err) => {

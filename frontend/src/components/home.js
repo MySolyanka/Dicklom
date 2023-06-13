@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function About() {
+  useEffect(() => {
+    if (id) {
+      handleLoad();
+    }
+  }, []);
   const navigate = useNavigate();
   const { id } = useParams();
   const [groupName, setGroupName] = useState("");
@@ -13,13 +18,32 @@ function About() {
   const [file, setFile] = useState(null);
 
   const handleButtonClick = () => {
-    console.log("k1ek");
     navigate("/");
+  };
+
+  const handleLoad = () => {
+    fetch(`http://localhost:8000/api/data?id=${id}`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error(`${response.status} ${response.statusText}`);
+      })
+      .then((data) => {
+        setGroupName(data[0].group_name);
+        setGroupNumber(data[0].group_number);
+        setSenderName(data[0].sender_name);
+        setMessageTopic(data[0].message_topic);
+        setMessageText(data[0].message_text || "");
+        setFile(file);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     // Отправка данных на сервер
     const formData = new FormData(e.target);
 
@@ -31,51 +55,36 @@ function About() {
     formData.append("file", file);
     // ...
 
-    if (id) {
-      fetch(`http://localhost:8000/api/data?id=${id}`)
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error(`${response.status} ${response.statusText}`);
-        })
-        .then((data) => {
-          setGroupName(data.group_Name);
-          setGroupNumber(data.group_Number);
-          setSenderName(data.sender_Name);
-          setMessageTopic(data.message_Topic);
-          setMessageText(data.message_Text);
-          setFile(file);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      fetch("http://localhost:8000/api/information", {
-        method: "POST",
-        body: formData,
+    fetch("http://localhost:8000/api/information", {
+      method: id ? "PUT" : "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (response.ok) {
+          id
+            ? alert("Обновление прошло успешло")
+            : alert("Загрузка прошла успешно");
+          setGroupName("");
+          setGroupNumber("");
+          setSenderName("");
+          setMessageTopic("");
+          setMessageText("");
+          setFile(null);
+          return;
+        }
+        throw new Error(`${response.status} ${response.statusText}`);
       })
-        .then((response) => {
-          if (response.ok) {
-            alert("Загрузка прошла успешно");
-            setGroupName("");
-            setGroupNumber("");
-            setSenderName("");
-            setMessageTopic("");
-            setMessageText("");
-            setFile(null);
-            return;
-          }
-          throw new Error(`${response.status} ${response.statusText}`);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
+    <form
+      onLoad={handleLoad}
+      onSubmit={handleSubmit}
+      className="form-container"
+    >
       <fieldset>
         <legend>Данные группы:</legend>
         <div className="form-group">
