@@ -43,10 +43,10 @@ function About() {
         })
         .then((data) => {
           setGroupName(data.group_name);
-          setGroupNumber(data.groupNumber);
-          setSenderName(data.senderName);
-          setMessageTopic(data.messageTopic);
-          setMessageText(data.messageText);
+          setGroupNumber(data.group_Number);
+          setSenderName(data.sender_Name);
+          setMessageTopic(data.message_Topic);
+          setMessageText(data.message_Text);
           setFile(file);
         })
         .catch((err) => {

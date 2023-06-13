@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 const columns = [
   { field: "id", headerName: "ID", width: 150 },
-  { field: "group_name", headerName: "group_name", width: 150 },
-  { field: "group_number", headerName: "group_number", width: 150 },
-  { field: "sender_name", headerName: "sender_name", width: 150 },
-  { field: "message_topic", headerName: "message_topic", width: 150 },
-  { field: "message_text", headerName: "message_text", width: 150 },
-  { field: "file", headerName: "message_text", width: 150 },
+  { field: "group_name", headerName: "Группа", width: 150 },
+  { field: "group_number", headerName: "Курс", width: 150 },
+  { field: "sender_name", headerName: "Отправитель", width: 150 },
+  { field: "message_topic", headerName: "Тема", width: 150 },
+  { field: "message_text", headerName: "Информация", width: 150 },
+  { field: "file", headerName: "Прикреплённый файл", width: 150 },
 ];
 
 function DataTable() {
