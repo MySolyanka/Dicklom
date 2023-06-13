@@ -43,10 +43,10 @@ function About() {
         })
         .then((data) => {
           setGroupName(data.group_name);
-          setGroupNumber(data.groupNumber);
-          setSenderName(data.senderName);
-          setMessageTopic(data.messageTopic);
-          setMessageText(data.messageText);
+          setGroupNumber(data.group_Number);
+          setSenderName(data.sender_Name);
+          setMessageTopic(data.message_Topic);
+          setMessageText(data.message_Text);
           setFile(file);
         })
         .catch((err) => {
@@ -60,6 +60,12 @@ function About() {
         .then((response) => {
           if (response.ok) {
             alert("Загрузка прошла успешно");
+            setGroupName("");
+            setGroupNumber("");
+            setSenderName("");
+            setMessageTopic("");
+            setMessageText("");
+            setFile(null);
             return;
           }
           throw new Error(`${response.status} ${response.statusText}`);
@@ -68,14 +74,6 @@ function About() {
           console.log(error);
         });
     }
-
-    // Сброс значений полей
-    setGroupName("");
-    setGroupNumber("");
-    setSenderName("");
-    setMessageTopic("");
-    setMessageText("");
-    setFile(null);
   };
 
   return (
