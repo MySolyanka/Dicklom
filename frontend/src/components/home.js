@@ -60,6 +60,12 @@ function About() {
         .then((response) => {
           if (response.ok) {
             alert("Загрузка прошла успешно");
+            setGroupName("");
+            setGroupNumber("");
+            setSenderName("");
+            setMessageTopic("");
+            setMessageText("");
+            setFile(null);
             return;
           }
           throw new Error(`${response.status} ${response.statusText}`);
@@ -68,14 +74,6 @@ function About() {
           console.log(error);
         });
     }
-
-    // Сброс значений полей
-    setGroupName("");
-    setGroupNumber("");
-    setSenderName("");
-    setMessageTopic("");
-    setMessageText("");
-    setFile(null);
   };
 
   return (
