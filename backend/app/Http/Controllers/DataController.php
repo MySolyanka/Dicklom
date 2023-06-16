@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Information;
 
 
+
 class DataController extends Controller
 {
     public function index()
@@ -51,8 +52,11 @@ class DataController extends Controller
         $file = Storage::path($data->file_path);
         $filename = basename($file);
 
-        // Создание временного файла
-        $tempFile = tempnam(sys_get_temp_dir(), 'bot');
+        // Получение расширения файла
+        $extension = pathinfo($file, PATHINFO_EXTENSION);
+
+        // Создание временного файла с исходным расширением
+        $tempFile = tempnam(sys_get_temp_dir(), 'bot') . '.' . $extension;
         copy($file, $tempFile);
 
         return response()->download($tempFile, $filename)->deleteFileAfterSend(true);
