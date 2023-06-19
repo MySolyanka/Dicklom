@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Alert } from "@mui/material";
 
 function About() {
   useEffect(() => {
@@ -16,9 +17,13 @@ function About() {
   const [messageTopic, setMessageTopic] = useState("");
   const [messageText, setMessageText] = useState("");
   const [file, setFile] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleButtonClick = () => {
     navigate("/");
+  };
+  const handleTableButtonClick = () => {
+    navigate("/table");
   };
 
   const handleLoad = () => {
@@ -62,7 +67,7 @@ function About() {
       })
         .then((response) => {
           if (response.ok) {
-            alert("Загрузка прошла успешно");
+            setShowAlert(true);
             setGroupName("");
             setGroupNumber("");
             setSenderName("");
@@ -171,10 +176,24 @@ function About() {
       <div className="button-container">
         <input type="submit" value="Отправить" className="submit-button" />
         <br />
+        <br />
         <button onClick={handleButtonClick} className="cancel-button">
           Выйти
         </button>
+        <button onClick={handleTableButtonClick} className="cancel-button">
+          Таблица данных
+        </button>
       </div>
+      {showAlert && (
+        <Alert
+          onClose={() => {
+            setShowAlert(false);
+          }}
+          severity="success"
+        >
+          Загрузка прошла успешно
+        </Alert>
+      )}
     </form>
   );
 }
