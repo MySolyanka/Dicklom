@@ -29,11 +29,6 @@ class InformationController extends Controller
 
         $data = $request->all();
 
-
-
-
-
-
         $model = new Information(); // Создание новой модели
         $model->group_name = $data['group_name']; // Замените "field1" на имя поля в вашей таблице
         $model->group_number = $data['group_number'];

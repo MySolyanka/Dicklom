@@ -8,10 +8,7 @@ class BotController extends Controller
 {
     public function checkMessage(Request $request, $topic)
     {
-        // Выполните здесь необходимую логику для проверки наличия записи в базе данных
-        // и получения соответствующего сообщения
 
-        // Пример: ищем запись с заданной темой в таблице "information"
         $information = Information::where('message_topic', $topic)->first();
 
         if ($information) {
